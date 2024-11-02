@@ -51,7 +51,7 @@ const EditProduct = () => {
           "Content-type": "multipart/form-data",
         },
       });
-      navigate("/");
+      navigate("/admin-dashboard");
     } catch (error) {
       console.log(error);
     }

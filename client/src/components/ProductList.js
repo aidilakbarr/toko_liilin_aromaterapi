@@ -26,44 +26,58 @@ const ProductList = () => {
 
   return (
     <div className="container mt-5">
-      <Link to="/add" className="button is-success">
+      <Link to="/admin/add" className="button is-success">
         Add New
       </Link>
-      <div className="columns is-multiline mt-2">
-        {products.map((product) => (
-          <div className="column is-one-quarter" key={product.product_id}>
-            <div className="card">
-              <div className="card-image">
-                <figure className="image is-4by3">
-                  <img src={product.image_url} alt="Images" />
-                </figure>
-              </div>
-              <div className="card-content">
-                <div className="media">
-                  <div className="media-content">
-                    <p className="title is-4">{product.name}</p>
+      {products.length > 0 ? (
+        <table className="table is-striped is-fullwidth mt-3">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Stok</th>
+              <th>Aroma</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {products.map((product, index) => (
+              <tr key={product.product_id}>
+                <td>{index + 1}</td>
+                <td>
+                  <div className="card-image">
+                    <figure className="image is-4by3">
+                      <img src={product.image_url} alt="Images" />
+                    </figure>
                   </div>
-                </div>
-              </div>
-
-              <footer className="card-footer">
-                <Link
-                  to={`edit/${product.product_id}`}
-                  className="card-footer-item"
-                >
-                  Edit
-                </Link>
-                <a
-                  onClick={() => deleteProduct(product.product_id)}
-                  className="card-footer-item"
-                >
-                  Delete
-                </a>
-              </footer>
-            </div>
-          </div>
-        ))}
-      </div>
+                </td>
+                <td>{product.name}</td>
+                <td>{product.description}</td>
+                <td>{product.stock}</td>
+                <td>{product.aroma}</td>
+                <td>
+                  <Link
+                    to={`/admin/edit/${product.product_id}`}
+                    className="button is-small is-info mr-2"
+                  >
+                    Edit
+                  </Link>
+                  <button
+                    onClick={() => deleteProduct(product.product_id)}
+                    className="button is-small is-danger"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p className="mt-3">No products available.</p>
+      )}
     </div>
   );
 };

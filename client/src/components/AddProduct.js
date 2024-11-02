@@ -33,7 +33,7 @@ const AddProduct = () => {
           "Content-type": "multipart/form-data",
         },
       });
-      navigate("/");
+      navigate("/admin-dashboard");
     } catch (error) {
       console.log(error);
     }
@@ -44,14 +44,14 @@ const AddProduct = () => {
       <div className="column is-half">
         <form onSubmit={saveProduct}>
           <div className="field">
-            <label className="label">Product Name</label>
+            <label className="label">Name</label>
             <div className="control">
               <input
                 type="text"
                 className="input"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Product Name"
+                placeholder="Name"
               />
             </div>
           </div>
