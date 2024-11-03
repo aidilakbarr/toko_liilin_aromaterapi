@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
 
-const EditProduct = () => {
+const EditProduct = ({ product, onFinishEdit }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
@@ -10,22 +9,19 @@ const EditProduct = () => {
   const [aroma, setAroma] = useState("");
   const [file, setFile] = useState("");
   const [preview, setPreview] = useState("");
-  const { id } = useParams();
-  const navigate = useNavigate();
 
   useEffect(() => {
     getProductById();
   }, []);
 
   const getProductById = async () => {
-    const response = await axios.get(`http://localhost:5000/products/${id}`);
-    setName(response.data.name);
-    setDescription(response.data.description);
-    setPrice(response.data.price);
-    setStock(response.data.stock);
-    setAroma(response.data.aroma);
-    setFile(response.data.image);
-    setPreview(response.data.image_url);
+    setName(product.name);
+    setDescription(product.description);
+    setPrice(product.price);
+    setStock(product.stock);
+    setAroma(product.aroma);
+    setFile(product.image);
+    setPreview(product.image_url);
   };
 
   const loadImage = (e) => {
@@ -43,15 +39,18 @@ const EditProduct = () => {
     formData.append("price", price);
     formData.append("stock", stock);
     formData.append("aroma", aroma);
-    console.log(id);
 
     try {
-      await axios.patch(`http://localhost:5000/products/${id}`, formData, {
-        headers: {
-          "Content-type": "multipart/form-data",
-        },
-      });
-      navigate("/admin-dashboard");
+      await axios.patch(
+        `http://localhost:5000/products/${product.product_id}`,
+        formData,
+        {
+          headers: {
+            "Content-type": "multipart/form-data",
+          },
+        }
+      );
+      onFinishEdit();
     } catch (error) {
       console.log(error);
     }

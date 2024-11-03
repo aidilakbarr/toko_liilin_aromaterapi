@@ -6,8 +6,6 @@ import Register from "./components/Auth/Register";
 import Dashboard from "./layouts/Dashboard";
 import Admin from "./layouts/Admin";
 import AdminLayout from "./layouts/AdminLayout";
-import AddProduct from "./components/AddProduct";
-import EditProduct from "./components/EditProduct";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/style.default.css";
 import "./css/custom.css";
@@ -28,18 +26,6 @@ function App() {
         path="/admin-dashboard"
         element={
           user?.admin === "1" ? <AdminLayout /> : <Navigate to="/login" />
-        }
-      />
-      <Route
-        path="/admin/add"
-        element={
-          user?.admin === "1" ? <AddProduct /> : <Navigate to="/login" />
-        }
-      />
-      <Route
-        path="/admin/edit/:id"
-        element={
-          user?.admin === "1" ? <EditProduct /> : <Navigate to="/login" />
         }
       />
       <Route

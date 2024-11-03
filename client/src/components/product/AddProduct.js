@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
-const AddProduct = () => {
+const AddProduct = ({ onFinishAdd }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
@@ -10,7 +9,6 @@ const AddProduct = () => {
   const [aroma, setAroma] = useState("");
   const [file, setFile] = useState("");
   const [preview, setPreview] = useState("");
-  const navigate = useNavigate();
 
   const loadImage = (e) => {
     const image = e.target.files[0];
@@ -33,7 +31,7 @@ const AddProduct = () => {
           "Content-type": "multipart/form-data",
         },
       });
-      navigate("/admin-dashboard");
+      onFinishAdd();
     } catch (error) {
       console.log(error);
     }

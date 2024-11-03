@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
-const ProductList = () => {
+const ProductList = ({ onAddProductClick, onEditProductClick }) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -26,9 +25,9 @@ const ProductList = () => {
 
   return (
     <div className="container mt-5">
-      <Link to="/admin/add" className="button is-success">
-        Add New
-      </Link>
+      <button onClick={onAddProductClick} className="button is-success">
+        Add Product
+      </button>
       {products.length > 0 ? (
         <table className="table is-striped is-fullwidth mt-3">
           <thead>
@@ -58,12 +57,13 @@ const ProductList = () => {
                 <td>{product.stock}</td>
                 <td>{product.aroma}</td>
                 <td>
-                  <Link
-                    to={`/admin/edit/${product.product_id}`}
+                  <button
+                    onClick={() => onEditProductClick(product)}
                     className="button is-small is-info mr-2"
                   >
                     Edit
-                  </Link>
+                  </button>
+
                   <button
                     onClick={() => deleteProduct(product.product_id)}
                     className="button is-small is-danger"
