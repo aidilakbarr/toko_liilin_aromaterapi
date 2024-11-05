@@ -59,3 +59,7 @@ input.input100 {
   transition: all 0.4s;
   border: transparent;
 }
+
+span.txt1 {
+  color: #000;
+}

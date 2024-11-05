@@ -4,9 +4,10 @@ import { AuthContext } from "./context/AuthContext";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import Dashboard from "./layouts/Dashboard";
-import Admin from "./layouts/Admin";
 import AdminLayout from "./layouts/AdminLayout";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+
 import "./css/style.default.css";
 import "./css/custom.css";
 

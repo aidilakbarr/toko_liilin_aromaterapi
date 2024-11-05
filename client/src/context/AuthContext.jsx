@@ -1,11 +1,12 @@
 import { createContext, useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { baseUrl, postRequest } from "../utils/services";
+import { baseUrl, postRequest, getRequest } from "../utils/services";
 
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [product, setProduct] = useState([]);
   const [registerError, setRegisterError] = useState(null);
   const [isRegisterLoading, setIsRegisterLoading] = useState(false);
   const [registerInfo, setRegisterInfo] = useState({
@@ -26,6 +27,19 @@ export const AuthContextProvider = ({ children }) => {
     setUser(JSON.parse(user));
   }, []);
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const products = await getRequest(`${baseUrl}/products`);
+        setProduct(products);
+        console.log(products);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
   const updateRegisterInfo = useCallback((info) => {
     setRegisterInfo(info);
   }, []);
@@ -128,6 +142,7 @@ export const AuthContextProvider = ({ children }) => {
         updateLoginInfo,
         isLoginLoading,
         isAuthLoading,
+        product,
       }}
     >
       {children}
